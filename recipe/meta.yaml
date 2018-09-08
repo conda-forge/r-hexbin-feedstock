@@ -1,5 +1,4 @@
-{% set version = "1.27.2" %}
-
+{% set version = '1.27.2' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,13 +9,13 @@ package:
 source:
   fn: hexbin_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/hexbin_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/hexbin/hexbin_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/hexbin_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/hexbin/hexbin_{{ version }}.tar.gz
   sha256: 46d47b1efef75d6f126af686a4dd614228b60418b9a5bde9e9e5d11200a0ee52
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 2
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -24,32 +23,39 @@ build:
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('fortran') }}        # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('fortran') }}  # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-lattice
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-lattice
 
 test:
   commands:
-    - $R -e "library('hexbin')"  # [not win]
+    - $R -e "library('hexbin')"           # [not win]
     - "\"%R%\" -e \"library('hexbin')\""  # [win]
 
 about:
   home: http://github.com/edzer/hexbin
   license: GPL-2
-  summary: Binning and plotting functions for hexagonal bins. Now uses and relies on grid graphics
-    and formal (S4) classes and methods.
+  summary: Binning and plotting functions for hexagonal bins.
   license_family: GPL2
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-2'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
