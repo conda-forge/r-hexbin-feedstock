@@ -1,4 +1,4 @@
-{% set version = "1.27.3" %}
+{% set version = '1.27.3' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -7,7 +7,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: hexbin_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/hexbin_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/hexbin/hexbin_{{ version }}.tar.gz
@@ -16,7 +15,6 @@ source:
 build:
   merge_build_host: True  # [win]
   number: 0
-  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -53,8 +51,21 @@ about:
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
+    - conda-forge/r
+
+# Package: hexbin
+# Version: 1.27.3
+# Title: Hexagonal Binning Routines
+# Author: Dan Carr <dcarr@voxel.galaxy.gmu.edu>, ported by Nicholas Lewin-Koh and Martin Maechler <maechler@stat.math.ethz.ch>, contains copies of lattice functions written by Deepayan Sarkar  <deepayan.sarkar@r-project.org>
+# Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+# Depends: R (>= 2.0.1), methods
+# Imports: lattice, grid, graphics, grDevices, stats, utils
+# Suggests: marray, affy, Biobase, limma
+# Description: Binning and plotting functions for hexagonal bins.
+# Collate: lattice.R BTC.R BTY.R grid.hexagons.R grid.hexlegend.R hbox.R hdiffplot.R hexbinList.R hexbinplot.R hexbin.s4.R hexpanel.R hexplom.R hexPlotMA.R hexutil.R hexViewport.R HO.R LINGRAY.R LOCS.R MAG.R RB.R smoothHexbin.R
+# License: GPL-2
+# NeedsCompilation: yes
+# URL: http://github.com/edzer/hexbin
+# Packaged: 2019-05-14 13:56:49 UTC; edzer
+# Repository: CRAN
+# Date/Publication: 2019-05-14 14:50:03 UTC
