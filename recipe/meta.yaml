@@ -1,4 +1,4 @@
-{% set version = "1.28.2" %}
+{% set version = "1.28.3" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/hexbin_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/hexbin/hexbin_{{ version }}.tar.gz
-  sha256: 6241f8d3a6c6be2c1c693c3ddb99554bc103e3c6cf602d0c2787c0ce6fd1702d
+  sha256: 0eb33511c1a4ff29dda8b89fee420ea7041033f981c7f16484c9f504d749de5f
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
