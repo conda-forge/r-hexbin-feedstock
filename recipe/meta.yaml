@@ -1,4 +1,4 @@
-{% set version = "1.28.3" %}
+{% set version = "1.28.4" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,10 +9,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/hexbin_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/hexbin/hexbin_{{ version }}.tar.gz
-  sha256: 0eb33511c1a4ff29dda8b89fee420ea7041033f981c7f16484c9f504d749de5f
+  sha256: 7555784d0c91e2680691e7a2c94ade0b1e643570b4e30e4ed31d4842d22fc8a0
 
 build:
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
